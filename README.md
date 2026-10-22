@@ -1,31 +1,40 @@
-# CS-300-10834-M01-DSA-Analysis-and-DesignWhat the Program Does
+# CS 300 – Data Structures and Algorithms
 
-The program shows a menu with four options:
+In this course, I worked on a course-planning application for ABC University. The goal was to create a program that could load course information from a file, organize the data, print all courses in alphanumeric order, and allow a user to search for an individual course and view its prerequisites.
 
-Load Data Structure: asks for the course file name, reads and validates every line, and loads the courses into a binary search tree.
-Print Course List: prints every course, including math courses, in alphanumeric order.
-Print Course: asks for a course number and prints its title and each prerequisite's number and title.
-Exit
+## What was the problem I was solving?
 
-Before loading, the program checks the file for formatting errors. Every line must have a course number and a title, no course number may appear twice, and every prerequisite must exist as a course in the file. The file is read in full before prerequisites are checked, so a prerequisite listed later in the file is still accepted. The existing data is only replaced once a new file passes every check.
+The main problem was deciding how to organize and retrieve course data efficiently. I explored three different data structures: a vector, a hash table, and a binary search tree. Each structure could store the course information, but they had different strengths depending on whether the program needed to search for one course or print all courses in sorted order.
 
-How to Build and Run
-g++ -std=c++11 -o ProjectTwo ProjectTwo.cpp
-./ProjectTwo
+For Project One, I analyzed the runtime and memory usage of these structures and compared their advantages and disadvantages. I recommended using a binary search tree because it supports efficient searching while also allowing the courses to be printed in alphanumeric order using an in-order traversal.
 
-When prompted, enter the file name CS_300_ABCU_Advising_Program_Input.csv.
+For Project Two, I implemented the advising program in C++ using that binary search tree design.
 
-Sample Output
-What would you like to do? 2
-Here is a sample schedule:
+## How did I approach the problem?
 
+I started by breaking the problem into smaller tasks: reading and validating the course file, creating course objects, storing those objects in a data structure, searching for individual courses, and printing the complete course list.
 
-What was the problem I was solving? ABCU's advisors needed a quick way to see the Computer Science course list in order and to look up any course's prerequisites while meeting with students. In Project One, I designed the solution and compared three data structures for storing the course data. In Project Two, I built the working program.
+Understanding data structures was important because the structure I selected directly affected how efficiently the program could perform these tasks. A vector is simple but may require searching through every element. A hash table provides fast average lookup times but does not naturally maintain sorted order. A binary search tree provided a good balance because it supported average-case efficient searches and naturally produced a sorted list through in-order traversal.
 
-How did I approach the problem? I started with the requirements, then wrote pseudocode for loading, sorting, and searching with each candidate data structure and analyzed their runtime. A vector is simple, but finding a course means scanning the whole list, and printing in order means sorting first. A hash table finds a course very quickly but keeps no order, so printing the sorted list still requires a sort. A binary search tree stores courses by course number, so searching is fast (O(log n) on average) and an in-order traversal prints the sorted list with no extra sorting step. Because the advisors need both lookups and a sorted list, I chose the binary search tree. Understanding these trade-offs is why data structures matter: the right choice makes the main operations simple and fast, and the wrong one adds extra work to every request.
+## How did I overcome roadblocks?
 
-How did I overcome roadblocks? Removing a node with two children from a binary search tree was the hardest part of the course's tree assignment. I worked through it by handling each case separately: no children, one child, and two children. For the two-child case, I replaced the node with the smallest course in its right subtree. In Project Two, validating prerequisites was tricky because a course can be listed as a prerequisite before its own line appears in the file. I solved this by reading the whole file first, then checking every prerequisite against the full set of course numbers. I tested each fix with both good input and deliberately broken input.
+One challenge was validating the input data correctly. Each course could contain a different number of prerequisites, so the program had to parse each line carefully. I also needed to verify that every prerequisite listed in the file actually existed as another course.
 
-How has this project expanded my approach to designing software? I now plan the data structure around the operations the user actually needs, instead of picking one out of habit. Writing pseudocode and estimating runtime before coding made the implementation faster and caught design problems early.
+Another challenge was implementing the binary search tree operations correctly. I worked through the insertion, search, and traversal logic separately instead of trying to implement everything at once. Testing with both valid and invalid input helped me catch issues with file handling, menu selections, lowercase course numbers, and missing course information.
 
-How has this project changed the way I write maintainable, readable, and adaptable programs? I keep each function to one job, such as parsing a line, loading the file, searching the tree, or printing a course. I use descriptive names and comments, and I validate all user and file input so bad data produces a clear error message instead of a crash. Because the tree is in its own class, the program could switch to a different data source or data structure without rewriting the menu or display code.
+## How has this work expanded my approach to designing software?
+
+This project reinforced the importance of planning before writing code. Comparing multiple data structures before implementing the final program helped me understand that there is not always one universally best solution. The correct design depends on what operations the program needs to perform most often.
+
+I also became more comfortable thinking about runtime complexity while designing software instead of only worrying about whether the program produces the correct output.
+
+## How has my programming become more maintainable, readable, and adaptable?
+
+Throughout this project, I focused on separating responsibilities into different functions. File loading, validation, binary search tree insertion, searching, printing, and menu handling were kept separate instead of being placed into one large function.
+
+I also used descriptive variable and function names, consistent formatting, comments where they improved understanding, and input validation to make the program easier to follow and maintain. These practices make it easier to change or reuse parts of the program later without rewriting the entire application.
+
+## Portfolio Artifacts
+
+- Project One runtime and memory analysis
+- `ProjectTwo.cpp` – Working C++ advising assistance program using a binary search tree
